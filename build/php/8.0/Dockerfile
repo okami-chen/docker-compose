@@ -1,7 +1,7 @@
-FROM php:7.3-fpm-buster
+FROM php:8.0-fpm-buster
 LABEL Author="Eward"
-LABEL Version="fpm-7.3"
-LABEL Description="PHP FPM 7.3. All extensions."
+LABEL Version="fpm-8.0"
+LABEL Description="PHP FPM 8.0. All extensions."
 
 #设置时区
 ENV TZ=Asia/Shanghai

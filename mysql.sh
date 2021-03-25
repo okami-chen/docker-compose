@@ -1,0 +1,1 @@
+docker exec -it $(docker ps -a | grep mysql:5.7 | awk  '{print $1}') bash

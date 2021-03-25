@@ -4,6 +4,11 @@ COPY ./sources.list /etc/apt/sources.list
 LABEL Author="Okami-Chen"
 LABEL Version="fpm-7.4"
 LABEL Description="PHP FPM 7.4"
+
+#设置时区
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get update -y --fix-missing && apt-get upgrade -y && apt-get -y install --no-install-recommends \
     libfreetype6-dev libjpeg62-turbo-dev libpng-dev autoconf make zlib1g zlib1g-dev \
     libtool wget libxml2-dev bzip2 libsodium-dev libedit-dev libsqlite3-dev libssl-dev \

@@ -1,0 +1,1 @@
+docker exec -it $(docker ps -a | grep phpmyadmin/phpmyadmin:latest | awk  '{print $1}') bash

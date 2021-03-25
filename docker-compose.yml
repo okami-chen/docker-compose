@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
     nginx:
         container_name: nginx
@@ -6,35 +6,75 @@ services:
         restart: always
         ports:
             - 80:80
+            - 9072:9072
+            - 9073:9073
+            - 9074:9074
+            - 9080:9080
+            - 8001:8001
         volumes:
             - ./nginx/logs:/var/log/nginx/
             - ./nginx/conf.d:/etc/nginx/conf.d
-            - D:/docker/www:/var/www/html
-        links:
-            - php74
-
-    php74:
-        container_name: php74
-#        build: build/php/7.4
-        image: registry.cn-hangzhou.aliyuncs.com/okami/php:7.4.7
+            - /Users/kevin/www:/var/www/html
+    php72:
+        container_name: php72
+        build: build/php/7.2
         volumes:
-            - D:/docker/www:/var/www/html
+            - /Users/kevin/www:/var/www/html
             - ./addon/supervisord.d/:/etc/supervisor/conf.d/
             - ./addon/php/swoole.ini:/usr/local/etc/php/conf.d/swoole.ini
-            - ./addon/php/php.ini:/usr/local/etc/php/php.ini
+            - ./addon/php/php_72.ini:/usr/local/etc/php/php.ini
             - ./addon/bash/run.sh:/opt/run.sh
         command: /opt/run.sh
         links:
             - redis
+            - mysql
+    php73:
+        container_name: php73
+        build: build/php/7.3
+        volumes:
+            - /Users/kevin/www:/var/www/html
+            - ./addon/supervisord.d/:/etc/supervisor/conf.d/
+            - ./addon/php/swoole.ini:/usr/local/etc/php/conf.d/swoole.ini
+            - ./addon/php/php_73.ini:/usr/local/etc/php/php.ini
+            - ./addon/bash/run.sh:/opt/run.sh
+        command: /opt/run.sh
+        links:
+            - redis
+            - mysql
+    php74:
+        container_name: php74
+        build: build/php/7.4
+        volumes:
+            - /Users/kevin/www:/var/www/html
+            - ./addon/supervisord.d/:/etc/supervisor/conf.d/
+            - ./addon/php/swoole.ini:/usr/local/etc/php/conf.d/swoole.ini
+            - ./addon/php/php_74.ini:/usr/local/etc/php/php.ini
+            - ./addon/bash/run.sh:/opt/run.sh
+        command: /opt/run.sh
+        links:
+            - redis
+            - mysql
+    php80:
+        container_name: php80
+        build: build/php/8.0
+        volumes:
+            - /Users/kevin/www:/var/www/html
+            - ./addon/supervisord.d/:/etc/supervisor/conf.d/
+            - ./addon/php/swoole.ini:/usr/local/etc/php/conf.d/swoole.ini
+            - ./addon/php/php_80.ini:/usr/local/etc/php/php.ini
+            - ./addon/bash/run.sh:/opt/run.sh
+        command: /opt/run.sh
+        links:
+            - redis
+            - mysql
     redis:
         container_name: redis
-        # 指定镜像
         image: redis:latest
         restart: always
         ports:
             - 6379:6379
         volumes:
-            - D:/docker/data/redis/data:/data
+            - /Users/kevin/data/redis/data:/data
         command:
             redis-server
     mysql:
@@ -42,11 +82,12 @@ services:
         image: mysql:5.7
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: "1q2w3e4r"
-            MYSQL_USER: 'root'
+            MYSQL_USER: 'sa'
             MYSQL_PASS: '1q2w3e4r'
+            MYSQL_ROOT_PASSWORD: "1q2w3e4r"
         volumes:
-            - D:/docker/data/mysql/data:/var/lib/mysql
+            - /Users/kevin/data/mysql:/var/lib/mysql
+            - ./addon/mysql/my.cnf:/etc/my.cnf
         ports:
             - 3306:3306
     phpmyadmin:
@@ -58,36 +99,50 @@ services:
         links:
             - mysql
         environment:
-            MYSQL_USER: "root"
-            MYSQL_PASSWORD: "1q2w3e4r"
+#            MYSQL_USER: "root"
+#            MYSQL_PASSWORD: "1q2w3e4r"
             MYSQL_ROOT_PASSWORD: "1q2w3e4r"
             PMA_HOST: mysql
             PMA_USER: "root"
             PMA_PASSWORD: "1q2w3e4r"
-    consul:
-        image: consul
-        container_name: consul
-        command: agent -server -bootstrap-expect=1 -ui -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1
         volumes:
-            - D:/docker/data/consul/data:/consul/data
-            - D:/docker/data/consul/config:/consul/config
-        ports:
-            - 8500:8500
-    rabbitmq:
-        image: rabbitmq:management-alpine
-        container_name: rabbitmq
-        volumes:
-            - D:/docker/data/rabbitmq:/var/lib/rabbitmq
-        environment:
-            - RABBITMQ_DEFAULT_VHOST=my_vhost
-            - RABBITMQ_DEFAULT_USER=admin
-            - RABBITMQ_DEFAULT_PASS=admin
-        restart: always
-        ports:
-            - "15672:15672"
-            - "5672:5672"
-        logging:
-            driver: "json-file"
-            options:
-                max-size: "200k"
-                max-file: "10"
+            - ./addon/phpmyadmin/config.inc.php:/var/www/html/config.inc.php
+#    consul:
+#        image: consul
+#        container_name: consul
+#        command: agent -server -bootstrap-expect=1 -ui -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1
+#        volumes:
+#            - /Users/kevin/data/consul/data:/consul/data
+#            - /Users/kevin/data/consul/config:/consul/config
+#        ports:
+#            - 8500:8500
+#
+#    rabbitmq:
+#        image: rabbitmq:management-alpine
+#        container_name: rabbitmq
+#        volumes:
+#            - /Users/kevin/data/rabbitmq:/var/lib/rabbitmq
+#        environment:
+#            - RABBITMQ_DEFAULT_VHOST=my_vhost
+#            - RABBITMQ_DEFAULT_USER=admin
+#            - RABBITMQ_DEFAULT_PASS=admin
+#        restart: always
+#        ports:
+#            - "15672:15672"
+#            - "5672:5672"
+#        logging:
+#            driver: "json-file"
+#            options:
+#                max-size: "200k"
+#                max-file: "10"
+
+#    hyperf:
+#        container_name: hyperf
+#        build: /Users/kevin/www/biz-skeleton
+#        volumes:
+#            - /Users/kevin/www/biz-skeleton:/opt/www
+#        links:
+#            - redis
+#            - mysql
+#        ports:
+#            - "9501:9501"

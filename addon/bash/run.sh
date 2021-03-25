@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-rm -rf /etc/default/locale
+echo "alias ll='ls -lh'" >> /root/.bashrc
 env >> /etc/default/locale
-/etc/init.d/cron start
-#supervisord -c /etc/supervisor/supervisord.conf
-#/usr/local/sbin/php-fpm -F
-/usr/local/bin/docker-php-entrypoint
+/usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+/usr/local/sbin/php-fpm -c /usr/local/etc/php-fpm.conf
