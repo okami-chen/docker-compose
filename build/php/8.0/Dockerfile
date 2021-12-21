@@ -12,9 +12,8 @@ COPY ./run.sh /opt/run.sh
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 # apt-get update -y --fix-missing && apt-get upgrade -y && apt-get -y install --no-install-recommends \
 # supervisor procps &&
-RUN install-php-extensions @composer redis mysqli pdo_mysql swoole bcmath apcu amqp\
-    intl exif gettext pcntl sysvsem sysvshm sysvmsg mongodb gd sockets xmlrpc zip bz2\
-    opcache mcrypt && \
+RUN install-php-extensions @composer  mysqli pdo_mysql  bcmath apcu amqp intl exif gettext pcntl \
+    sysvsem sysvshm sysvmsg gd sockets xmlrpc zip bz2 opcache mcrypt mongodb redis swoole-4.8.3  && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && ln -s $(composer config --global home) /root/composer && \
     composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
