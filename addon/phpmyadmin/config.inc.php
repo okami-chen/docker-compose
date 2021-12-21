@@ -34,28 +34,6 @@ $cfg['Servers'][$i]['AllowNoPassword'] = false;
 $cfg['Servers'][$i]['user'] = 'sa';
 $cfg['Servers'][$i]['password'] = '1q2w3e4r';
 
-$i++;
-/* Authentication type */
-$cfg['Servers'][$i]['auth_type'] = 'config';
-/* Server parameters */
-$cfg['Servers'][$i]['host'] = 'rm-bp1457tgaf4pd3zn6to.mysql.rds.aliyuncs.com';
-$cfg['Servers'][$i]['compress'] = false;
-$cfg['Servers'][$i]['AllowNoPassword'] = false;
-$cfg['Servers'][$i]['user'] = 'ectouch';
-$cfg['Servers'][$i]['password'] = 'Baiyi2008';
-
-
-$i++;
-/* Authentication type */
-$cfg['Servers'][$i]['auth_type'] = 'config';
-/* Server parameters */
-$cfg['Servers'][$i]['host'] = '47.116.47.249';
-$cfg['Servers'][$i]['compress'] = false;
-$cfg['Servers'][$i]['AllowNoPassword'] = false;
-$cfg['Servers'][$i]['user'] = 'root';
-$cfg['Servers'][$i]['password'] = 'Baiyi2008';
-
-
 /* Storage database and tables */
 // $cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
 // $cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
