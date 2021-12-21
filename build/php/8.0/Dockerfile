@@ -8,7 +8,7 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 COPY ./run.sh /opt/run.sh
-#COPY ./sources.list /etc/apt/sources.list
+COPY ./sources.list /etc/apt/sources.list
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
 # supervisor procps &&

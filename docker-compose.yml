@@ -17,7 +17,7 @@ services:
             - /Users/kevin/www:/var/www/html
     php:
         container_name: php
-        build: build/php/8.0
+        image: registry.cn-hangzhou.aliyuncs.com/okami/docker-compose:php-8.0
         volumes:
             - D:/www:/var/www/html
             - ./addon/supervisord.d/:/etc/supervisor/conf.d/
