@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -t docker_php80 .
+docker build -t docker_php .

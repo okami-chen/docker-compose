@@ -1,6 +1,11 @@
+deb https://mirrors.ustc.edu.cn/debian/ buster main contrib non-free
+deb-src https://mirrors.ustc.edu.cn/debian/ buster main contrib non-free
 
+deb https://mirrors.ustc.edu.cn/debian/ buster-updates main contrib non-free
+deb-src https://mirrors.ustc.edu.cn/debian/ buster-updates main contrib non-free
 
+deb https://mirrors.ustc.edu.cn/debian/ buster-backports main contrib non-free
+deb-src https://mirrors.ustc.edu.cn/debian/ buster-backports main contrib non-free
 
-deb http://mirrors.163.com/debian/ buster main
-deb http://mirrors.163.com/debian-security/ buster/updates main
-deb http://mirrors.163.com/debian/ buster-updates main
+deb https://mirrors.ustc.edu.cn/debian-security/ buster/updates main contrib non-free
+deb-src https://mirrors.ustc.edu.cn/debian-security/ buster/updates main contrib non-free
